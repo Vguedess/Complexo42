@@ -1,7 +1,5 @@
 import { Header, Icon } from "../../shared/components/demo-ui";
-import type { View } from "../../shared/navigation";
-
-export function DashboardPanel({peopleCount,teamsCount,completedCount,onNavigate}:{peopleCount:number;teamsCount:number;completedCount:number;onNavigate:(view:View)=>void}) {
+export function DashboardPanel({peopleCount,teamsCount,completedCount,onNavigate}) {
  return <>
 <Header eyebrow="INTELIGÊNCIA COLETIVA / DASHBOARD" title="Pessoas. Potencial. Execução."><span className="status-pill"><Icon name="dot"/> Prévia interativa</span></Header><div className="intro"><div className="intro-kicker">ESTRUTURAR → MOBILIZAR → DESENVOLVER</div><h2>O talento certo.<br/><em>No time certo.</em></h2><p>Um ambiente para reconhecer habilidades, formar equipes, organizar ações e acompanhar a evolução das pessoas — do primeiro projeto às entregas reconhecidas.</p><button className="primary" onClick={()=>onNavigate("talentos")}>Explorar talentos <span>↗</span></button><div className="shape one"/><div className="shape two"/></div>
         <div className="stats"><div className="stat"><div className="stat-label">PERFIS DE EXEMPLO</div><div className="stat-value">0{peopleCount}</div><span>Geografia + competências</span></div><div className="stat"><div className="stat-label">EQUIPES SIMULADAS</div><div className="stat-value">0{teamsCount}</div><span>Formação multidisciplinar</span></div><div className="stat"><div className="stat-label">AÇÕES CONCLUÍDAS</div><div className="stat-value">0{completedCount}</div><span>Dados apenas nesta sessão</span></div><div className="stat"><div className="stat-label">MÓDULOS PLANEJADOS</div><div className="stat-value">07</div><span>Entrega gradual por fases</span></div></div>
