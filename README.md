@@ -4,6 +4,14 @@
 
 O **Complexo42** é uma plataforma colaborativa para mapear talentos, organizar alunos da Academia MBL, formar incubadoras, coordenar ações e acompanhar o desenvolvimento das pessoas com evidências, avaliações e reconhecimentos.
 
+## Links do projeto
+
+- Demonstração publicada: https://complexo42-beyond-curve.vercel.app
+- Backlog colaborativo: https://github.com/Vguedess/Complexo42/issues
+- Deploys: https://vercel.com/beyond-curve/complexo42
+
+A demonstração utiliza **somente dados sintéticos**, sem autenticação ou armazenamento de dados pessoais. A navegação e o Kanban são ilustrativos, sem persistência.
+
 ## Objetivo de produto
 
 A proposta vai além de um CRM. O ciclo central é: **cadastro mínimo → descoberta de competências → formação de equipes → ações verificáveis → medalhas e feedback → evolução**. A comunicação por microequipe é parte do produto e pode complementar ferramentas externas.
