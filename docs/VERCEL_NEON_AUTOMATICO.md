@@ -15,8 +15,8 @@ Este é o **único caminho aprovado** de provisionamento inicial do banco do Com
 
 1. Abrir [o projeto Vercel](https://vercel.com/beyond-curve/complexo42) no workspace **Beyond Curve**.
 2. Abrir **Storage** (ou a aba equivalente de Storage/Marketplace no painel atual).
-3. Selecionar **Create Database** ou **Connect Store → Neon**. Se Neon não aparecer na lista, procurar por **Neon** no Vercel Marketplace.
-4. Selecionar o **plano gratuito** e confirmar limites/condições no momento da contratação. Não selecionar cobrança por uso, upgrade ou recurso pago sem autorização.
+3. Selecionar **Create Database** ou **Connect Store → Neon**. Alternativamente, abrir [Neon no Vercel Marketplace](https://vercel.com/marketplace/neon) e clicar em **Install**.
+4. Preferir **Create New Neon Account** (integração nativa, com provisionamento e billing gerenciados pela Vercel); selecionar o **plano gratuito** e confirmar limites/condições. Não selecionar cobrança por uso, upgrade ou recurso pago sem autorização.
 5. Criar o recurso pelo fluxo **Vercel → Neon**, escolher região adequada às Functions e vincular ao projeto **complexo42**.
 6. Na integração, escolher os ambientes necessários. **Preview deve usar branch/banco isolado**, nunca dados de produção.
 7. Verificar no painel **Settings → Environment Variables** se as variáveis foram injetadas pela integração. Verificar **apenas nomes e ambientes**; nunca copiar os valores para issues, README, chat ou logs.
