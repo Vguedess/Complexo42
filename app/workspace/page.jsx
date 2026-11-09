@@ -19,7 +19,7 @@ export default function Home() {
  const [tasks,setTasks] = useState(initialTasks);
  const completed = tasks.filter(task=>task.status==="Concluído").length;
  const currentLabel = nav.find(item=>item.id===view)?.label ?? "Visão geral";
- function onAdvance(id:number) { setTasks(previous=>advanceTask(previous,id)); }
+ function onAdvance(id) { setTasks(previous=>advanceTask(previous,id)); }
  return <div className="layout">
    <aside className="sidebar">
     <div className="brand"><div className="brand-mark">C<span>42</span></div><div><strong>COMPLEXO<span>42</span></strong><small>LAB DE DESENVOLVIMENTO</small></div></div>
