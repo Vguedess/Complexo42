@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { advanceTask, statuses } from "./workflow.ts";
+import { advanceTask, statuses } from "./workflow.js";
 
 const sample = [{id:1,title:"Exemplo",team:"Time",status:"A fazer",priority:"Alta"}];
 test("tasks advance one phase without mutating previous state", () => {

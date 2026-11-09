@@ -1,7 +1,5 @@
-import type { Task } from "../types";
-
 /** Tarefas fictícias, sem persistência. */
-export const initialTasks: Task[] = [
+export const initialTasks = [
  {id:1,title:"Mapear capacidades das equipes",team:"Núcleo Operações",status:"A fazer",priority:"Alta"},
  {id:2,title:"Desenhar ficha de talentos",team:"Laboratório Produto",status:"Em execução",priority:"Alta"},
  {id:3,title:"Criar identidade da incubadora",team:"Estúdio Criativo",status:"Em revisão",priority:"Média"},
