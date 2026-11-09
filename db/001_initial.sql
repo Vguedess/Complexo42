@@ -1,24 +1,69 @@
 -- COMPLEXO42 — ESQUEMA PROPOSTO / NÃO EXECUTAR SEM REVIEW LGPD, AUTH E AUTORIZAÇÃO
 -- PostgreSQL 16+. UUIDs gerados no banco. Nenhum dado de exemplo ou PII real.
+-- MODELO CANÔNICO v0.2: IDs internos independentes de Valete, Academia e provedor de autenticação.
+-- Este arquivo ainda NÃO foi executado. Depois da primeira migração aplicada, não o editar mais.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE members (
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
- auth_subject text NOT NULL UNIQUE,
  display_name varchar(120) NOT NULL,
- whatsapp varchar(24),
  city varchar(80),
  state_code char(2),
  social_links jsonb NOT NULL DEFAULT '[]'::jsonb,
- accomplishments text,
  profile_visibility varchar(20) NOT NULL DEFAULT 'restricted' CHECK (profile_visibility IN ('restricted','members')),
- contact_share_allowed boolean NOT NULL DEFAULT false,
  status varchar(16) NOT NULL DEFAULT 'active' CHECK (status IN ('active','suspended','deleted')),
  created_at timestamptz NOT NULL DEFAULT now(),
  updated_at timestamptz NOT NULL DEFAULT now(),
  deleted_at timestamptz,
  CONSTRAINT city_state_pair CHECK ((city IS NULL) = (state_code IS NULL))
 );
+-- Login federado/desacoplado: trocar Clerk/Better Auth/etc. não muda members.id.
+-- "provider_subject" identifica a conta externa, não contém token ou senha.
+CREATE TABLE member_auth_identities (
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+ member_id uuid NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+ provider varchar(80) NOT NULL,
+ provider_subject text NOT NULL,
+ linked_at timestamptz NOT NULL DEFAULT now(),
+ UNIQUE(provider,provider_subject)
+);
+CREATE INDEX idx_member_auth_identities_member ON member_auth_identities(member_id);
+
+-- Contato privado fora da consulta geral de perfis. Acesso sempre autorizado no backend.
+CREATE TABLE member_contacts (
+ member_id uuid PRIMARY KEY REFERENCES members(id) ON DELETE CASCADE,
+ whatsapp varchar(24),
+ contact_share_allowed boolean NOT NULL DEFAULT false,
+ updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- "Feitos" são coleções independentes, permitindo múltiplas evidências sem novas colunas.
+CREATE TABLE member_accomplishments (
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+ member_id uuid NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+ title varchar(180) NOT NULL,
+ description text,
+ evidence_url text,
+ visibility varchar(20) NOT NULL DEFAULT 'restricted'
+   CHECK (visibility IN ('restricted','members')),
+ created_at timestamptz NOT NULL DEFAULT now(),
+ updated_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX idx_member_accomplishments_member ON member_accomplishments(member_id);
+
+-- Correspondência de IDs de sistemas oficiais APENAS se formalmente autorizada.
+-- Não implica importação de dados nem integração com qualquer banco de terceiros.
+CREATE TABLE member_external_refs (
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+ member_id uuid NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+ source_system varchar(120) NOT NULL,
+ external_subject_id text NOT NULL,
+ linked_at timestamptz NOT NULL DEFAULT now(),
+ last_synced_at timestamptz,
+ UNIQUE(source_system, external_subject_id)
+);
+CREATE INDEX idx_member_external_refs_member ON member_external_refs(member_id);
+
 CREATE TABLE skills (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), label varchar(100) NOT NULL UNIQUE);
 CREATE TABLE member_skills (
  member_id uuid NOT NULL REFERENCES members(id) ON DELETE CASCADE,
