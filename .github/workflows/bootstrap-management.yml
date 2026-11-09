@@ -1,0 +1,29 @@
+name: Planejamento GitHub (Milestones e Labels)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/setup-repository.mjs'
+      - '.github/workflows/bootstrap-management.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  configure:
+    if: github.repository == 'Vguedess/Complexo42'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Criar marcos e classificar issues (idempotente)
+        run: node .github/scripts/setup-repository.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
