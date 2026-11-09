@@ -1,21 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { nav, type View } from "../modules/shared/navigation";
-import { DashboardPanel } from "../modules/dashboard/components/dashboard-panel";
-import { TalentsPanel } from "../modules/talents/components/talents-panel";
-import { TeamsPanel } from "../modules/teams/components/teams-panel";
-import { ActionsPanel } from "../modules/actions/components/actions-panel";
-import { BadgesPanel } from "../modules/badges/components/badges-panel";
-import { RoomsPanel } from "../modules/rooms/components/rooms-panel";
-import { EvaluationsPanel } from "../modules/evaluations/components/evaluations-panel";
-import { initialTasks } from "../modules/actions/data/demo";
-import { advanceTask } from "../modules/actions/workflow";
-import { people } from "../modules/talents/data/demo";
-import { squads } from "../modules/teams/data/demo";
+import { nav } from "../../modules/shared/navigation";
+import { DashboardPanel } from "../../modules/dashboard/components/dashboard-panel";
+import { TalentsPanel } from "../../modules/talents/components/talents-panel";
+import { TeamsPanel } from "../../modules/teams/components/teams-panel";
+import { ActionsPanel } from "../../modules/actions/components/actions-panel";
+import { BadgesPanel } from "../../modules/badges/components/badges-panel";
+import { RoomsPanel } from "../../modules/rooms/components/rooms-panel";
+import { EvaluationsPanel } from "../../modules/evaluations/components/evaluations-panel";
+import { initialTasks } from "../../modules/actions/data/demo";
+import { advanceTask } from "../../modules/actions/workflow";
+import { people } from "../../modules/talents/data/demo";
+import { squads } from "../../modules/teams/data/demo";
 
 export default function Home() {
- const [view,setView] = useState<View>("painel");
+ const [view,setView] = useState("painel");
  const [tasks,setTasks] = useState(initialTasks);
  const completed = tasks.filter(task=>task.status==="Concluído").length;
  const currentLabel = nav.find(item=>item.id===view)?.label ?? "Visão geral";
