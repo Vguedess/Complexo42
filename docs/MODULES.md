@@ -9,6 +9,10 @@
 - **Monólito modular, sem microsserviços na fase inicial**: uma aplicação Next.js, um deploy Vercel, um banco PostgreSQL via Neon integrado no painel Vercel quando aprovado.
 - Cada domínio tem pastas próprias. A `app/page.tsx` só compõe as telas, controla a navegação e mantém o estado temporário compartilhado do protótipo.
 
+## Persistência desacoplada
+
+O cadastro usa `members.id` como ID estável; identidades de login e referências autorizadas de sistemas terceiros são associações separadas. O domínio não conhece o banco oficial da Academia MBL nem da Valete. Leia [ADR-002 — Estratégia de dados](DATA_ARCHITECTURE.md). Não implementar abstrações genéricas para outros bancos antes de ter uma segunda integração real.
+
 ## Estrutura implementada
 
 ```text
