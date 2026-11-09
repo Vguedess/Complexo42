@@ -43,6 +43,23 @@ A proposta vai além de um CRM. O ciclo central é: **cadastro mínimo → desco
 - `GET /api/health` indica explicitamente `mode: demo` e `persistentData: false`.
 - **Não há login, persistência, banco de dados ou envio de mensagens habilitados.** Não inserir informações reais em exemplos/commits/issues.
 
+## Linguagem e arquitetura modular
+
+**TypeScript** é a linguagem principal (arquivos `.ts` e `.tsx`), e **JavaScript** (`.js` / `.mjs`) pode conviver no mesmo projeto para ferramentas e integrações. A verificação estrita de tipos está ativa.
+
+O aplicativo usa um **monólito modular**: cada funcionalidade tem seu próprio código em `modules/`. As sete telas foram separadas da `app/page.tsx`, que agora funciona como composição de componentes; o fluxo de tarefas tem uma regra de domínio testável independente.
+
+- `modules/dashboard`: indicadores gerais;
+- `modules/talents`: perfis, competências e feitos;
+- `modules/teams`: incubadoras e formação de equipes;
+- `modules/actions`: Kanban, ações, estados e regras;
+- `modules/badges`: medalhas e evidências;
+- `modules/rooms`: comunicação interna por equipe;
+- `modules/evaluations`: feedback e desenvolvimento;
+- `modules/shared`: componentes e contratos genéricos.
+
+**Documentação e convenções:** [ADR-001 — Linguagem e arquitetura modular](docs/MODULES.md). Cada módulo pode evoluir seus componentes, serviços, testes e adaptadores sem misturar código com outros domínios. Banco de dados e autenticação permanecem pendentes de integração pela Vercel.
+
 ## Stack e integração Vercel
 
 - Next.js App Router, React, TypeScript, CSS.
@@ -67,6 +84,7 @@ npm run dev
 
 ```bash
 npm run typecheck
+npm test
 npm run build
 ```
 
@@ -74,7 +92,9 @@ A implementação com banco e autenticação terá etapa própria de provisionam
 
 ## Organização
 
-- `app/` – experiência demonstrativa Next.js
+- `app/` – composição Next.js e rotas HTTP
+- `modules/` – funcionalidades separadas em módulos com componentes, contratos e regras
+- `docs/MODULES.md` – convenções de TypeScript/JavaScript e limites entre módulos
 - `db/001_initial.sql` – modelo relacional proposto; ainda não provisionado
 - `docs/PRODUCT.md` – requisitos, papéis e MVP
 - `docs/ARCHITECTURE.md` – decisões técnicas e ordem de implementação

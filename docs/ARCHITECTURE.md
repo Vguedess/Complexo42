@@ -1,5 +1,11 @@
 # Arquitetura e integração com Vercel
 
+## ADR de linguagem e separação funcional
+
+Adotamos **TypeScript como linguagem principal, com JavaScript permitido**, e arquitetura de **monólito modular**. O shell `app/page.tsx` compõe sete módulos em `modules/`, separados por domínio. Cada módulo poderá receber sua própria UI, regras, serviço, testes e adapter do Neon quando for necessário.
+
+Consulte [ADR-001 — Módulos e convenções](MODULES.md).
+
 ## Topologia pretendida
 
 ```text
