@@ -60,6 +60,16 @@ O aplicativo usa um **monólito modular**: cada funcionalidade tem seu próprio 
 
 **Documentação e convenções:** [ADR-001 — Linguagem e arquitetura modular](docs/MODULES.md). Cada módulo pode evoluir seus componentes, serviços, testes e adaptadores sem misturar código com outros domínios. Banco de dados e autenticação permanecem pendentes de integração pela Vercel.
 
+## Modelo de dados e integração futura com Valete / Academia MBL
+
+O Complexo42 utiliza um **modelo canônico com IDs próprios**, independente do banco, dos identificadores e da autenticação de sistemas terceiros. A origem oficial dos dados da Valete/Academia ainda **não está confirmada**, então não há integração ativa nem importação de cadastros.
+
+- Perfil, identidades de login, contatos privados e feitos são entidades separadas no SQL proposto (sem dados reais).
+- **Neon PostgreSQL via integração automática da Vercel** continua sendo o banco inicial. A camada de aplicação desacopla regras de negócio do driver do banco.
+- Integrações autorizadas futuras por API/CSV usarão mapeamento, validação e importação idempotente; não presumir tecnologia nem acesso ao banco oficial.
+- **Revisar [ADR-002: Estratégia de dados e interoperabilidade](docs/DATA_ARCHITECTURE.md)** antes da primeira migração. Depois de executado, cada ajuste no banco exige **nova migração versionada**, jamais edição retroativa.
+- Não iniciar sincronização ou cadastrar usuários reais antes de autenticação, autorização e avaliação LGPD.
+
 ## Stack e integração Vercel
 
 - Next.js App Router, React, TypeScript, CSS.
