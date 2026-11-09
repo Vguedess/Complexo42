@@ -2,7 +2,7 @@
 
 ## ADR de linguagem e separação funcional
 
-Adotamos **TypeScript como linguagem principal, com JavaScript permitido**, e arquitetura de **monólito modular**. O shell `app/page.tsx` compõe sete módulos em `modules/`, separados por domínio. Cada módulo poderá receber sua própria UI, regras, serviço, testes e adapter do Neon quando for necessário.
+Adotamos **JavaScript como linguagem principal e TypeScript somente para segurança**, e arquitetura de **monólito modular**. A home pública é `app/page.jsx`; o laboratório anterior é `app/workspace/page.jsx`, usando módulos independentes. Cada módulo poderá receber sua própria UI, regras, serviço, testes e adapter do Neon quando for necessário.
 
 Consulte [ADR-001 — Módulos e convenções](MODULES.md) e [ADR-002 — Estratégia de dados e interoperabilidade](DATA_ARCHITECTURE.md).
 

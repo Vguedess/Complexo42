@@ -43,36 +43,18 @@ A proposta vai além de um CRM. O ciclo central é: **cadastro mínimo → desco
 - `GET /api/health` indica explicitamente `mode: demo` e `persistentData: false`.
 - **Não há login, persistência, banco de dados ou envio de mensagens habilitados.** Não inserir informações reais em exemplos/commits/issues.
 
-## Linguagem e arquitetura modular
+## Home, linguagem e streaming
 
-**TypeScript** é a linguagem principal (arquivos `.ts` e `.tsx`), e **JavaScript** (`.js` / `.mjs`) pode conviver no mesmo projeto para ferramentas e integrações. A verificação estrita de tipos está ativa.
-
-O aplicativo usa um **monólito modular**: cada funcionalidade tem seu próprio código em `modules/`. As sete telas foram separadas da `app/page.tsx`, que agora funciona como composição de componentes; o fluxo de tarefas tem uma regra de domínio testável independente.
-
-- `modules/dashboard`: indicadores gerais;
-- `modules/talents`: perfis, competências e feitos;
-- `modules/teams`: incubadoras e formação de equipes;
-- `modules/actions`: Kanban, ações, estados e regras;
-- `modules/badges`: medalhas e evidências;
-- `modules/rooms`: comunicação interna por equipe;
-- `modules/evaluations`: feedback e desenvolvimento;
-- `modules/shared`: componentes e contratos genéricos.
-
-**Documentação e convenções:** [ADR-001 — Linguagem e arquitetura modular](docs/MODULES.md). Cada módulo pode evoluir seus componentes, serviços, testes e adaptadores sem misturar código com outros domínios. Banco de dados e autenticação permanecem pendentes de integração pela Vercel.
-
-## Modelo de dados e integração futura com Valete / Academia MBL
-
-O Complexo42 utiliza um **modelo canônico com IDs próprios**, independente do banco, dos identificadores e da autenticação de sistemas terceiros. A origem oficial dos dados da Valete/Academia ainda **não está confirmada**, então não há integração ativa nem importação de cadastros.
-
-- Perfil, identidades de login, contatos privados e feitos são entidades separadas no SQL proposto (sem dados reais).
-- **Neon PostgreSQL via integração automática da Vercel** continua sendo o banco inicial. A camada de aplicação desacopla regras de negócio do driver do banco.
-- Integrações autorizadas futuras por API/CSV usarão mapeamento, validação e importação idempotente; não presumir tecnologia nem acesso ao banco oficial.
-- **Revisar [ADR-002: Estratégia de dados e interoperabilidade](docs/DATA_ARCHITECTURE.md)** antes da primeira migração. Depois de executado, cada ajuste no banco exige **nova migração versionada**, jamais edição retroativa.
-- Não iniciar sincronização ou cadastrar usuários reais antes de autenticação, autorização e avaliação LGPD.
+- **JavaScript como linguagem principal**: páginas e componentes JSX, domínio e utilitários em módulos ES. **TypeScript reservado à segurança**, inicialmente no verificador de sessão.
+- **Home pública em /:** Server Components e Suspense por cartão, com interface inspirada na Academia MBL e marca Complexo42.
+- **Seis cartões fixos** que mudam o conteúdo sintético entre /?preview=aluno e /?preview=professor.
+- **Portal de acesso desativado:** campos de e-mail e código são apenas placeholders. A prévia não concede permissões.
+- **Laboratório anterior:** /workspace, preservando os sete módulos simulados e o Kanban temporário.
+- Documentação: [Home e streaming](docs/HOME.md) e [Arquitetura modular](docs/MODULES.md).
 
 ## Stack e integração Vercel
 
-- Next.js App Router, React, TypeScript, CSS.
+- Next.js App Router, React, JavaScript, CSS e TypeScript somente na fronteira de segurança.
 - Vercel para builds, deploys de preview e produção e Functions; preferência por região `gru1` se o banco for regionalmente compatível.
 - Banco **PostgreSQL via Neon no Vercel Marketplace**, quando habilitado, com migrações SQL versionadas em `db/`.
 - Autenticação via provedor consolidado (Clerk / Better Auth com configuração segura) antes de qualquer cadastro.

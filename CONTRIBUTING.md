@@ -12,12 +12,12 @@
 
 ## Convenção de linguagem e módulos
 
-- **TypeScript é obrigatório como padrão para funcionalidades e APIs** (`.tsx` com JSX e `.ts` para regras e tipos). JavaScript é aceito em scripts e quando justificado em PR.
-- Uma funcionalidade deve ficar em sua pasta de `modules/`; `app/page.tsx` só compõe as telas, sem regras de negócio.
-- Componentes React não acessam diretamente o banco. Operações persistentes deverão passar por rotas/serviços com autenticação e autorização no servidor.
-- Manter APIs públicas explícitas entre módulos, evitando imports de arquivos internos de outros domínios.
-- Alterações em regras de negócio devem incluir testes relevantes; não criar diretórios vazios por antecipação.
-- Ler [docs/MODULES.md](docs/MODULES.md) antes do primeiro PR.
+- **JavaScript (ES Modules)** para frontend, backend, componentes e testes. **TypeScript somente em segurança**, como validação de sessão, autenticação e autorização.
+- A home está na raiz; o laboratório anterior está em /workspace. A lógica fica em módulos independentes.
+- Server Components podem fazer streaming com Suspense. Streaming não substitui controle de acesso.
+- Nunca definir papéis reais a partir de preview, query params, localStorage ou formulários.
+- Componentes não devem acessar o Neon diretamente; operações persistentes passam por serviços autorizados.
+- Consulte [Home e streaming](docs/HOME.md) e [Módulos](docs/MODULES.md).
 
 ## Qualidade
 
