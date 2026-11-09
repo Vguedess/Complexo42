@@ -12,6 +12,25 @@ O **Complexo42** é uma plataforma colaborativa para mapear talentos, organizar 
 
 A demonstração utiliza **somente dados sintéticos**, sem autenticação ou armazenamento de dados pessoais. A navegação e o Kanban são ilustrativos, sem persistência.
 
+## Organização do trabalho no GitHub
+
+A execução é orientada por **Issues, Milestones e GitHub Projects**. O painel de desenvolvimento deve acompanhar a evolução do código (e não registrar dados de alunos).
+
+| Marco | Resultado esperado |
+| --- | --- |
+| **M0** · Fundação segura e governança | LGPD, autenticação, autorização, CI e banco Neon provisionado via Vercel |
+| **M1** · MVP operacional | Cadastro mínimo, mapa de talentos, incubadoras, Kanban e indicadores |
+| **M2** · Reconhecimento e comunicação | Medalhas, avaliações privadas, salas, retenção e direitos dos titulares |
+| **M3** · Evolução futura | Relatórios, integrações opcionais e melhorias do produto |
+
+- [Issues priorizadas e atribuição de responsáveis](https://github.com/Vguedess/Complexo42/issues)
+- [Milestones / entregas por fase](https://github.com/Vguedess/Complexo42/milestones)
+- [Planejamento e criação do GitHub Projects](docs/GITHUB_GESTAO.md)
+- [Guia de integração **automática** do Neon pela Vercel](docs/VERCEL_NEON_AUTOMATICO.md)
+- [Roadmap detalhado](docs/ROADMAP.md)
+
+O workflow [Planejamento GitHub](.github/workflows/bootstrap-management.yml) cria e associa marcos e etiquetas quando executado com permissão `issues:write`. A criação do **Projects V2** exige permissão adicional e está documentada para o proprietário concluir na interface.
+
 ## Objetivo de produto
 
 A proposta vai além de um CRM. O ciclo central é: **cadastro mínimo → descoberta de competências → formação de equipes → ações verificáveis → medalhas e feedback → evolução**. A comunicação por microequipe é parte do produto e pode complementar ferramentas externas.
